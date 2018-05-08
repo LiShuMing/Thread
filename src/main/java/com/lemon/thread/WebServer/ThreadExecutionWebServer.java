@@ -1,4 +1,4 @@
-package com.mobin.thread.WebServer;
+package com.lemon.thread.WebServer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 public class ThreadExecutionWebServer {
     private static final  int THREADNUM = 100;
     private static final Executor exec = Executors.newFixedThreadPool(THREADNUM);
+
     public static void main(String[] args) throws IOException {
         ServerSocket socket = new ServerSocket(80);
         while (true){
@@ -24,6 +25,5 @@ public class ThreadExecutionWebServer {
             };
             exec.execute(task);
         }
-
     }
 }

@@ -1,4 +1,4 @@
-package com.mobin.thread.Example;
+package com.lemon.thread.Example;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

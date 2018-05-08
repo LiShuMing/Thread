@@ -1,4 +1,4 @@
-package com.mobin.thread.ProducerAndConsumer;
+package com.lemon.thread.ProducerAndConsumer;
 
 /**
  * Created by MOBIN on 2016/8/18.
@@ -6,6 +6,7 @@ package com.mobin.thread.ProducerAndConsumer;
 public class Main {
     public static void main(String[] args) {
         EventStorage storage = new EventStorage();
+
         Producer producer = new Producer(storage);
         Thread thread1 = new Thread(producer);
 

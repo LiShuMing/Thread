@@ -1,4 +1,4 @@
-package com.mobin.thread.Volatile;
+package com.lemon.thread.Volatile;
 
 /**
  * Created by Mobin on 2016/4/15.
@@ -6,8 +6,8 @@ package com.mobin.thread.Volatile;
  * 工作内存中改变后必须将该变化同步回主内存），但volatileThead线程读的仍是自己工作内存的旧值导致出现多线程的可见性问题，解决办法就是给
  * isRunning变量加上volatile关键字。
  */
-public class VolatileTest extends  Thread{
-    private   volatile  boolean isRunning = true;
+public class VolatileTest extends Thread {
+    private  volatile  boolean isRunning = true;
     public boolean isRunning(){
         return isRunning;
     }

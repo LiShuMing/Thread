@@ -1,4 +1,4 @@
-package com.mobin.thread.sleepAndjoin;
+package com.lemon.thread.sleepAndjoin;
 
 /**
  * Created by Mobin on 2016/6/3.

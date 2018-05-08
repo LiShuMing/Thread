@@ -1,4 +1,4 @@
-package com.mobin.thread.countDownLatch;
+package com.lemon.thread.countDownLatch;
 
 /**
  * Created by Mobin on 2016/4/14.

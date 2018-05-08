@@ -1,4 +1,4 @@
-package com.mobin.thread.Queue;
+package com.lemon.thread.Queue;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -15,19 +15,21 @@ public class MyPriorityQueue {
         queue.add(4);
         queue.add(4);
         queue.add(3);
-        Arrays.asList();
+
+        //Arrays.asList();
+
         while (queue.size() > 0){
             System.out.println(queue.remove());
         }
     }
 
-    static class NumComparator implements Comparator<Integer>{
+    static class NumComparator implements Comparator<Integer> {
         @Override
         public int compare(Integer o1, Integer o2) {
             if (o1 > o2) {
-                return 1;
+                return -1;
             } else if (o1 < o2) {
-                return  -1;
+                return 1;
             } else
             return 0;
         }

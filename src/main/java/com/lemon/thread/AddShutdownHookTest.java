@@ -1,4 +1,4 @@
-package com.mobin.thread;
+package com.lemon.thread;
 
 /**
  * Created by Mobin on 2017/6/14.

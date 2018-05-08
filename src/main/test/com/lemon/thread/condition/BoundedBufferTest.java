@@ -1,4 +1,4 @@
-package com.mobin.thread.condition;
+package com.lemon.thread.condition;
 
 import org.junit.Test;
 

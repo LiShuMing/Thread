@@ -1,4 +1,4 @@
-package com.mobin.thread.MonitorThread;
+package com.lemon.thread.MonitorThread;
 
 import java.util.concurrent.ThreadFactory;
 
@@ -6,10 +6,10 @@ import java.util.concurrent.ThreadFactory;
  * Created by Mobin on 2017/2/18.
  */
 public class Daemon extends Thread {
-
     {
         setDaemon(true); // 永远作为守护线程
     }
+
     Runnable runnable = null;
     public Daemon(){
         super();
@@ -23,6 +23,7 @@ public class Daemon extends Thread {
     public Runnable getTunnable(){
         return runnable;
     }
+
     /*
      为ExecutorService提供一个名为守护线程的工厂
      创建一个可重用固定的守护线程池

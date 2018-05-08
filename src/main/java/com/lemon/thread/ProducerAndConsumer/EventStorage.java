@@ -1,4 +1,4 @@
-package com.mobin.thread.ProducerAndConsumer;
+package com.lemon.thread.ProducerAndConsumer;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -16,6 +16,7 @@ public class EventStorage {
         maxSize = 10;
         storage = new LinkedList<>();
     }
+
     /**
      *set方法检查存储列表storage是否还有空间，如果已经满了，就调用wait方法挂起线程并等待
      * 空余空间出现，当其他线程调用notifyAll方法时挂起的线程将被唤醒并且再次检查这个条件
@@ -38,15 +39,18 @@ public class EventStorage {
      * 当其他线程调用notifyAll方法时挂起的线程将被唤醒并且再次检查这个条件
      * */
     public synchronized void get(){
-        while(storage.size() == 0){
+        while (storage.size() == 0) {
             try {
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
         System.out.println("Get: " + storage.size());
-        ((LinkedList<?>)storage).poll();
+        Date d = ((LinkedList<Date>)storage).poll();
+        System.out.println("r:" + d.toString());
+
         notifyAll();
     }
 

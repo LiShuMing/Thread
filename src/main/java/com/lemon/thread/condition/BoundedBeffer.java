@@ -1,4 +1,4 @@
-package com.mobin.thread.condition;
+package com.lemon.thread.condition;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;

@@ -1,4 +1,4 @@
-package com.mobin.thread.countDownLatch;
+package com.lemon.thread.countDownLatch;
 
 import java.util.concurrent.CountDownLatch;
 

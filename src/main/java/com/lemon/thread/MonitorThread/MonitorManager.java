@@ -1,4 +1,4 @@
-package com.mobin.thread.MonitorThread;
+package com.lemon.thread.MonitorThread;
 
 /**
  * Created by Mobin on 2017/2/18.
@@ -22,7 +22,6 @@ public class MonitorManager {
                     e.printStackTrace();
                 }
             }
-
         }
     }
 
@@ -44,6 +43,7 @@ public class MonitorManager {
                 e.printStackTrace();
             }
         }
+
         //注意释放无用对象，避免内存泄露
         monthread = null;
     }

@@ -1,4 +1,4 @@
-package com.mobin.thread.ProducerAndConsumer;
+package com.lemon.thread.ProducerAndConsumer;
 
 /**
  * Created by MOBIN on 2016/8/18.

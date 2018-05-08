@@ -1,4 +1,4 @@
-package com.mobin.thread.Lock;
+package com.lemon.thread.Lock;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

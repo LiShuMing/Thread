@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 解法一：sub线程循环5次，接着sub2线程循环15次，接着主线程循环10次，如此循环50次，请写出程序。
  */
 public class ThreedCondition {
-	public static  void main(String[] args) {
+	public static void main(String[] args) {
 
 		final Commoned common = new Commoned();
 		new Thread(
@@ -40,15 +40,15 @@ public class ThreedCondition {
 	}
 }
 
-class Commoned{
-	private boolean sub = true;
-	private boolean sub2 = false;
+class Commoned {
 	Lock lock = new ReentrantLock();
 	Condition mainCondition = lock.newCondition();
 	Condition subCondition = lock.newCondition();
 	Condition sub2Condition = lock.newCondition();
+	private boolean sub = true;
+	private boolean sub2 = false;
 
-	public   void sub(int i){
+	public void sub(int i) {
 		try {
 			lock.lock();
 			while (!sub) {   //用while而不用if可以避免虚假唤醒
@@ -62,14 +62,14 @@ class Commoned{
 				System.out.println("sub  " + j + " loop of " + i);
 			}
 			sub = false;
-			sub2= true;
+			sub2 = true;
 			sub2Condition.signal();
-		}finally {
+		} finally {
 			lock.unlock();
 		}
 	}
 
-	public void main(int i){
+	public void main(int i) {
 		try {
 			lock.lock();
 			while (sub2 || sub) {
@@ -84,15 +84,15 @@ class Commoned{
 			}
 			sub = true;
 			subCondition.signal();
-		}finally {
+		} finally {
 			lock.unlock();
 		}
 	}
 
-	public void sub2(int i){
+	public void sub2(int i) {
 		try {
 			lock.lock();
-			while(!sub2) {
+			while (!sub2) {
 				try {
 					sub2Condition.await();
 				} catch (InterruptedException e) {
@@ -104,7 +104,7 @@ class Commoned{
 			}
 			sub2 = false;
 			mainCondition.signal();
-		}finally {
+		} finally {
 			lock.unlock();
 		}
 	}

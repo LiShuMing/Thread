@@ -1,6 +1,5 @@
 package com.lemon.thread;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -15,35 +14,35 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class IterationTest {
 
-    public static void main(String[] args) {
-      //  Collection num = new ArrayList<String>();
-        final Collection num = new CopyOnWriteArrayList();
-        num.add("One");
-        num.add("Two");
-        num.add("Three");
+	public static void main(String[] args) {
+		//  Collection num = new ArrayList<String>();
+		final Collection num = new CopyOnWriteArrayList();
+		num.add("One");
+		num.add("Two");
+		num.add("Three");
 
-        new Thread(new Runnable() {
-            public void run() {
-                Iterator<String> iterator= num.iterator();
-                while(iterator.hasNext()){
-                    String element = iterator.next();
-                    if("Two".equals(element)){
-                       num.remove(element);
-                    }else {
-                        System.out.println(element);
-                    }
-                }
-            }
-        }).start();
+		new Thread(new Runnable() {
+			public void run() {
+				Iterator<String> iterator = num.iterator();
+				while (iterator.hasNext()) {
+					String element = iterator.next();
+					if ("Two".equals(element)) {
+						num.remove(element);
+					} else {
+						System.out.println(element);
+					}
+				}
+			}
+		}).start();
 
-        new Thread(new Runnable() {
-            public void run() {
-                Iterator<String> iterator= num.iterator();
-                while(iterator.hasNext()){
-                    String element = iterator.next();
-                        System.out.println(element+"ppp");
-                }
-            }
-        }).start();
-    }
+		new Thread(new Runnable() {
+			public void run() {
+				Iterator<String> iterator = num.iterator();
+				while (iterator.hasNext()) {
+					String element = iterator.next();
+					System.out.println(element + "ppp");
+				}
+			}
+		}).start();
+	}
 }

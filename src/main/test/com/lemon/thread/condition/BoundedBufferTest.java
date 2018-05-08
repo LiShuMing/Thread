@@ -11,7 +11,8 @@ public class BoundedBufferTest {
 		BoundedBeffer buffer = new BoundedBeffer();
 		try {
 			for (int i = 0; i < 99; i++) {
-				buffer.put((Object) "a");;
+				buffer.put((Object) "a");
+				;
 			}
 
 			for (int i = 0; i < 99; i++) {
@@ -26,7 +27,7 @@ public class BoundedBufferTest {
 
 	@Test
 	public void testThreadBuffer() {
-		BoundedBeffer  buffer = new BoundedBeffer();
+		BoundedBeffer buffer = new BoundedBeffer();
 
 		new Thread(new Runnable() {
 			@Override

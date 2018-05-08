@@ -6,33 +6,33 @@ package com.lemon.thread.Lock;
  * 读写锁：读读共存   读写不能共存  写写不能共存
  */
 public class ReadWiriteLock {
-    private int writeRequest = 0;
-    private int read = 0;
-    private int write = 0;
+	private int writeRequest = 0;
+	private int read = 0;
+	private int write = 0;
 
-    public void readLock() throws InterruptedException {
-        if(write > 0 || writeRequest > 0){   //判断是否有写操作或写请求
-            wait();
-        }
-        read ++;
-    }
+	public void readLock() throws InterruptedException {
+		if (write > 0 || writeRequest > 0) {   //判断是否有写操作或写请求
+			wait();
+		}
+		read++;
+	}
 
-    public void unreadLock(){
-        read --;
-        notifyAll();
-    }
+	public void unreadLock() {
+		read--;
+		notifyAll();
+	}
 
-    public void writeRequest() throws InterruptedException {  //有多少线程请求写操作并无关系
-        writeRequest ++;
-        if(read > 0 || write > 0)
-              wait();
+	public void writeRequest() throws InterruptedException {  //有多少线程请求写操作并无关系
+		writeRequest++;
+		if (read > 0 || write > 0)
+			wait();
 
-        writeRequest --;
-        write ++;
-      }
+		writeRequest--;
+		write++;
+	}
 
-    public void unwriteLock(){
-        write --;
-        notifyAll();
-    }
+	public void unwriteLock() {
+		write--;
+		notifyAll();
+	}
 }

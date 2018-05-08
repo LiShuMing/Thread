@@ -8,33 +8,35 @@ package com.lemon.thread;
  * 作为内部类的各个Runable对象调用外部类的这些方法
  */
 public class MultiThreadShareData2 {
-    private  int count = 10;
+	private int count = 10;
 
-    public  synchronized  void inc(){
-        count ++;
-        System.out.println("线程进行了加操作"+count);
-    }
-    public  synchronized void dec(){
-        count --;
-        System.out.println("线程进行了减操作"+count);
-    }
-    public static void main(String[] args){
-        MultiThreadShareData2 multiThreadShareData2 = new MultiThreadShareData2();
-        for(int i = 0; i < 5; i ++) {
-            new Thread(multiThreadShareData2.new Threadinc()).start();
-            new Thread(multiThreadShareData2.new Threaddec()).start();
-        }
-    }
+	public static void main(String[] args) {
+		MultiThreadShareData2 multiThreadShareData2 = new MultiThreadShareData2();
+		for (int i = 0; i < 5; i++) {
+			new Thread(multiThreadShareData2.new Threadinc()).start();
+			new Thread(multiThreadShareData2.new Threaddec()).start();
+		}
+	}
 
-    class Threadinc implements  Runnable{
-       public void run() {
-            inc();
-       }
-   }
+	public synchronized void inc() {
+		count++;
+		System.out.println("线程进行了加操作" + count);
+	}
 
-      class  Threaddec implements  Runnable{
-        public void run() {
-            dec();
-        }
-    }
+	public synchronized void dec() {
+		count--;
+		System.out.println("线程进行了减操作" + count);
+	}
+
+	class Threadinc implements Runnable {
+		public void run() {
+			inc();
+		}
+	}
+
+	class Threaddec implements Runnable {
+		public void run() {
+			dec();
+		}
+	}
 }

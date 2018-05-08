@@ -10,55 +10,57 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by MOBIN on 2016/8/18.
  */
-public class ThreadFactoryTest implements ThreadFactory{
-    private int counter;
-    private String name;
-    private List<String> stats;
-    public ThreadFactoryTest(String name){
-        counter = 0;
-        this.name = name;
-        stats = new ArrayList<>();
-    }
-    @Override
-    public Thread newThread(Runnable r) {
-        Thread t = new Thread(r,name + "-Thread_" + counter);
-        counter ++;
-        stats.add("Created thread " + t.getId() + " with name " + t.getName() + " on " + new Date());
-        return t;
-    }
+public class ThreadFactoryTest implements ThreadFactory {
+	private int counter;
+	private String name;
+	private List<String> stats;
 
-    public String getStatus(){
-        StringBuffer sb = new StringBuffer();
-        Iterator<String> it = stats.iterator();
-        while(it.hasNext()){
-            sb.append(it.next());
-            sb.append("\n");
-        }
-        return  sb.toString();
-    }
+	public ThreadFactoryTest(String name) {
+		counter = 0;
+		this.name = name;
+		stats = new ArrayList<>();
+	}
 
-    static class Task implements  Runnable{
+	public static void main(String[] args) {
+		ThreadFactoryTest factoryTest = new ThreadFactoryTest("MyThreadFactory");
+		Task task = new Task();
+		Thread thread;
+		System.out.println("starting the Threads\n");
+		for (int i = 0; i < 10; i++) {
+			thread = factoryTest.newThread(task);
+			thread.start();
+		}
 
-        @Override
-        public void run() {
-            try{
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+		System.out.println("Factory stats:" + factoryTest.getStatus());
+	}
 
-    public static void main(String[] args) {
-        ThreadFactoryTest factoryTest = new ThreadFactoryTest("MyThreadFactory");
-        Task task = new Task();
-        Thread thread;
-        System.out.println("starting the Threads\n");
-        for(int i = 0; i < 10; i ++){
-            thread = factoryTest.newThread(task);
-            thread.start();
-        }
+	@Override
+	public Thread newThread(Runnable r) {
+		Thread t = new Thread(r, name + "-Thread_" + counter);
+		counter++;
+		stats.add("Created thread " + t.getId() + " with name " + t.getName() + " on " + new Date());
+		return t;
+	}
 
-        System.out.println("Factory stats:" + factoryTest.getStatus());
-    }
+	public String getStatus() {
+		StringBuffer sb = new StringBuffer();
+		Iterator<String> it = stats.iterator();
+		while (it.hasNext()) {
+			sb.append(it.next());
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
+	static class Task implements Runnable {
+
+		@Override
+		public void run() {
+			try {
+				TimeUnit.SECONDS.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

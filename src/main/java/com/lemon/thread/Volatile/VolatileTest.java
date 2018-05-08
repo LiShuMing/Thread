@@ -7,25 +7,27 @@ package com.lemon.thread.Volatile;
  * isRunning变量加上volatile关键字。
  */
 public class VolatileTest extends Thread {
-    private  volatile  boolean isRunning = true;
-    public boolean isRunning(){
-        return isRunning;
-    }
+	private volatile boolean isRunning = true;
 
-    public void setRunning(boolean isRunning){
-        this.isRunning= isRunning;
-    }
+	public static void main(String[] args) throws InterruptedException {
+		VolatileTest volatileThread = new VolatileTest();
+		volatileThread.start();
+		Thread.sleep(1000);
+		volatileThread.setRunning(false);   //通过主线程去修改isRunning值
+	}
 
-    public void run(){
-        System.out.println("进行了run...............");
-        while (isRunning){}
-        System.out.println("isUpdated的值被修改为为false,线程将被停止了");
-    }
+	public boolean isRunning() {
+		return isRunning;
+	}
 
-    public static void main(String[] args) throws InterruptedException {
-        VolatileTest volatileThread = new VolatileTest();
-        volatileThread.start();
-        Thread.sleep(1000);
-        volatileThread.setRunning(false);   //通过主线程去修改isRunning值
-    }
+	public void setRunning(boolean isRunning) {
+		this.isRunning = isRunning;
+	}
+
+	public void run() {
+		System.out.println("进行了run...............");
+		while (isRunning) {
+		}
+		System.out.println("isUpdated的值被修改为为false,线程将被停止了");
+	}
 }

@@ -1,7 +1,5 @@
 package com.mobin.thread.sleepAndjoin;
 
-import sun.org.mozilla.javascript.internal.Synchronizer;
-
 /**
  * Created by Mobin on 2016/6/3.
  * 验证sleep具有不释放锁的特点

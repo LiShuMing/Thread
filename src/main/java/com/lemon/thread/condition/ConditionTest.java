@@ -12,23 +12,18 @@ public class ConditionTest {
     public static  void main(String[] args) {
 
         final Commons common = new Commons();
-        new Thread(
-                new Runnable() {
-                    public void run() {
-                        for (int i = 1; i <= 50; i++) {
-                            common.sub(i);
-                        }
-                    }
-                }
-        ).start();
-
+        new Thread( () -> {
+            for (int i = 1; i <= 50; i++) {
+                common.sub(i);
+            }
+        }).start();
 
         for (int i = 1; i <= 50; i++) {
             common.main(i);
         }
-
     }
 }
+
 class Commons{
     private boolean sub = true;
     Lock lock = new ReentrantLock();
@@ -38,25 +33,24 @@ class Commons{
         lock.lock();
         try {
 
-
-        while (!sub) {   //用while而不用if可以避免虚假唤醒
-            try {
-                condition.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while (!sub) {   //用while而不用if可以避免虚假唤醒
+                try {
+                    condition.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        for (int j = 1; j <= 10; j++) {
-            System.out.println("sub  " + j + " loop of " + i);
-        }
-        sub = false;
+            for (int j = 1; j <= 10; j++) {
+                System.out.println("sub  " + j + " loop of " + i);
+            }
+            sub = false;
             condition.signal();
         }finally {
             lock.unlock();
         }
     }
 
-    public   void main(int i){
+    public void main(int i){
         lock.lock();
         try {
             while (sub) {

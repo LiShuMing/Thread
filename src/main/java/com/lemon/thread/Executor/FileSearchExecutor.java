@@ -16,31 +16,35 @@ public class FileSearchExecutor {
         String path = "E:\\DATA\\PUBLIC\\NOCE\\ETL\\ETL_CHR_L_MM\\20161020\\2016102011";
         String keyword = "mobin";
         int c = 0;
+
         File[] files = new File(path).listFiles();
         ExecutorService pool = Executors.newCachedThreadPool();
         ArrayList<Future<Integer>> rs = new ArrayList<>();
+
         for(File file: files){
-            MatchCount count = new MatchCount();
-            count.file = file;
-            count.keyword = keyword;
-            Future<Integer>  task = pool.submit(count);
+            MatchCount count = new MatchCount(file, keyword);
+            Future<Integer> task = pool.submit(count);
             rs.add(task); //将任务的返回结果添加到集合中
         }
 
         for(Future<Integer> f: rs) {
             c += f.get();
         }
+
         System.out.println("当前的最大线程数：" + ((ThreadPoolExecutor)pool).getLargestPoolSize());
         System.out.println("包含关键字的总文件数为：" + c);
     }
 }
 
 class  MatchCount implements Callable<Integer>{
-
-    public File file;
-    public String keyword;
+    private File file;
+    private String keyword;
     private Integer count = 0;
-    public ExecutorService pool;
+
+    public MatchCount(File file, String keyword) {
+        this.file = file;
+        this.keyword = keyword;
+    }
 
     public Integer call() throws Exception {
         if(search(file))
@@ -51,7 +55,7 @@ class  MatchCount implements Callable<Integer>{
     public boolean search(File file){
         boolean founded = false;
         try(Scanner scanner = new Scanner(new FileInputStream(file))){
-            while(!founded && scanner.hasNextLine()){
+            while(!founded && scanner.hasNextLine()) {
                 if (scanner.nextLine().contains(keyword))
                     founded = true;
             }

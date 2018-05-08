@@ -6,7 +6,7 @@ import java.util.concurrent.CountDownLatch;
  * Created by Mobin on 2016/4/14.
  */
 public class CountDownLatchTest1 {
-    public static long timeTask(int nThreads,final Runnable task) throws InterruptedException {
+    public static long timeTask(int nThreads, final Runnable task) throws InterruptedException {
         final CountDownLatch startGate = new CountDownLatch(1);
         final CountDownLatch endGate = new CountDownLatch(nThreads);
 
@@ -16,7 +16,7 @@ public class CountDownLatchTest1 {
                     try {
                         try {
                             startGate.await();
-                        }finally {
+                        } finally {
                             endGate.countDown();
                         }
 
@@ -28,11 +28,14 @@ public class CountDownLatchTest1 {
             };
             t.start();
         }
+
         long start = System.nanoTime();
         startGate.countDown();
         endGate.await();
         long end = System.nanoTime();
+
         System.out.println(end - start);
+
         return  end - start;
     }
 

@@ -13,6 +13,7 @@ public class BoundedBeffer {
     final Condition notEmpty = lock.newCondition();
 
     final Object[] items = new Object[100];
+
     int putptr,takeptr,count;
 
     public void put(Object x) throws InterruptedException {
@@ -20,27 +21,31 @@ public class BoundedBeffer {
         try {
             while (count == items.length)  //说明队列已满，需要等待（测试条件谓词）
                 notFull.await();
-            if(++putptr == items.length)
+
+            if (++putptr == items.length)
                 putptr = 0;
 
-            ++count;
+            // put item
+            items[count++] = x;
+
             notEmpty.signal();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
 
-    public Object take(Object x) throws InterruptedException {
+    public Object take() throws InterruptedException {
         lock.lock();
-        try{
+        try {
             while (count == 0)  //说明队列元素为空，没有值可等待值的插入（测试条件谓词）
                 notEmpty.await();
+
             if(++takeptr == items.length)
                 takeptr = 0;
-            -- count;
             notFull.signal();
-            return x;
-        }finally {
+            count--;
+			return items[takeptr - 1];
+        } finally {
             lock.unlock();
         }
     }
